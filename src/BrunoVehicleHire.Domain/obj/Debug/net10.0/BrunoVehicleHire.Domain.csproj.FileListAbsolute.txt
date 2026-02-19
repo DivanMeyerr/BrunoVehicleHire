@@ -1,0 +1,12 @@
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Domain/bin/Debug/net10.0/BrunoVehicleHire.Domain.deps.json
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Domain/bin/Debug/net10.0/BrunoVehicleHire.Domain.dll
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Domain/bin/Debug/net10.0/BrunoVehicleHire.Domain.pdb
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Domain/obj/Debug/net10.0/BrunoVehicleHire.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Domain/obj/Debug/net10.0/BrunoVehicleHire.Domain.AssemblyInfoInputs.cache
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Domain/obj/Debug/net10.0/BrunoVehicleHire.Domain.AssemblyInfo.cs
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Domain/obj/Debug/net10.0/BrunoVehicleHire.Domain.csproj.CoreCompileInputs.cache
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Domain/obj/Debug/net10.0/BrunoVehicleHire.Domain.sourcelink.json
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Domain/obj/Debug/net10.0/BrunoVehicleHire.Domain.dll
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Domain/obj/Debug/net10.0/refint/BrunoVehicleHire.Domain.dll
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Domain/obj/Debug/net10.0/BrunoVehicleHire.Domain.pdb
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Domain/obj/Debug/net10.0/ref/BrunoVehicleHire.Domain.dll

@@ -1,0 +1,16 @@
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/bin/Debug/net10.0/BrunoVehicleHire.Application.deps.json
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/bin/Debug/net10.0/BrunoVehicleHire.Application.dll
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/bin/Debug/net10.0/BrunoVehicleHire.Application.pdb
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/bin/Debug/net10.0/BrunoVehicleHire.Domain.dll
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/bin/Debug/net10.0/BrunoVehicleHire.Domain.pdb
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/obj/Debug/net10.0/BrunoVehicleHire.Application.csproj.AssemblyReference.cache
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/obj/Debug/net10.0/BrunoVehicleHire.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/obj/Debug/net10.0/BrunoVehicleHire.Application.AssemblyInfoInputs.cache
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/obj/Debug/net10.0/BrunoVehicleHire.Application.AssemblyInfo.cs
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/obj/Debug/net10.0/BrunoVehicleHire.Application.csproj.CoreCompileInputs.cache
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/obj/Debug/net10.0/BrunoVehicleHire.Application.sourcelink.json
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/obj/Debug/net10.0/BrunoVeh.0CCDF3BF.Up2Date
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/obj/Debug/net10.0/BrunoVehicleHire.Application.dll
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/obj/Debug/net10.0/refint/BrunoVehicleHire.Application.dll
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/obj/Debug/net10.0/BrunoVehicleHire.Application.pdb
+/Users/divanmeyer/Dev/AB/Bruno/BrunoVehicleHire/src/BrunoVehicleHire.Application/obj/Debug/net10.0/ref/BrunoVehicleHire.Application.dll
