@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunoVehicleHire.Domain", "src\BrunoVehicleHire.Domain\BrunoVehicleHire.Domain.csproj", "{8F9DD771-DD6D-4EF0-B767-DE48B0F83996}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunoVehicleHire.Application", "src\BrunoVehicleHire.Application\BrunoVehicleHire.Application.csproj", "{0C24BF57-2EC8-4CD1-95CF-640726CDF3B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunoVehicleHire.Infrastructure", "src\BrunoVehicleHire.Infrastructure\BrunoVehicleHire.Infrastructure.csproj", "{DC620FB2-6DB9-462E-9D86-257A0E232AB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrunoVehicleHire.API", "src\BrunoVehicleHire.API\BrunoVehicleHire.API.csproj", "{51E0B288-CB0B-4773-8338-F0A5C286942D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F9DD771-DD6D-4EF0-B767-DE48B0F83996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F9DD771-DD6D-4EF0-B767-DE48B0F83996}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F9DD771-DD6D-4EF0-B767-DE48B0F83996}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F9DD771-DD6D-4EF0-B767-DE48B0F83996}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C24BF57-2EC8-4CD1-95CF-640726CDF3B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C24BF57-2EC8-4CD1-95CF-640726CDF3B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C24BF57-2EC8-4CD1-95CF-640726CDF3B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C24BF57-2EC8-4CD1-95CF-640726CDF3B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC620FB2-6DB9-462E-9D86-257A0E232AB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC620FB2-6DB9-462E-9D86-257A0E232AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC620FB2-6DB9-462E-9D86-257A0E232AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC620FB2-6DB9-462E-9D86-257A0E232AB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51E0B288-CB0B-4773-8338-F0A5C286942D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51E0B288-CB0B-4773-8338-F0A5C286942D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51E0B288-CB0B-4773-8338-F0A5C286942D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51E0B288-CB0B-4773-8338-F0A5C286942D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
