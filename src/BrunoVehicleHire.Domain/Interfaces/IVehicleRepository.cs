@@ -10,4 +10,6 @@ public interface IVehicleRepository
     Task<Guid> AddAsync(Vehicle vehicle);
     Task<Vehicle> UpdateAsync(Vehicle vehicle);
     Task<bool> DeleteAsync(Guid guid);
+    
+    Task<bool> RegistrationExistsAsync(string regNumber, Guid? excludeId = null);
 }

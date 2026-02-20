@@ -5,22 +5,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BrunoVehicleHire.Infrastructure.Repositories;
 
-public class VehicleRepository: IVehicleRepository
+public class VehicleRepository(ApplicationDbContext dbContext) : IVehicleRepository
 {
-    private readonly ApplicationDbContext _dbContext;
-    
-    public VehicleRepository(ApplicationDbContext dbContext)
-        => _dbContext = dbContext;
-    
     public async Task<Vehicle?> GetByIdAsync(Guid vehicleId) 
-        => await _dbContext.Vehicles.AsNoTracking().FirstOrDefaultAsync(v => v.Id == vehicleId);
+        => await dbContext.Vehicles.AsNoTracking().FirstOrDefaultAsync(v => v.Id == vehicleId);
     
     public async Task<Vehicle?> GetByRegistrationNumberAsync(string registrationNumber)
-        => await _dbContext.Vehicles.AsNoTracking().FirstOrDefaultAsync(v => v.RegistrationNumber == registrationNumber);
+        => await dbContext.Vehicles.AsNoTracking().FirstOrDefaultAsync(v => v.RegistrationNumber == registrationNumber);
 
     public async Task<(List<Vehicle> Items, int TotalCount)> GetPaginatedAsync(int page, int pageSize, string searchTerm)
     {
-        var query = _dbContext.Vehicles.AsNoTracking();
+        var query = dbContext.Vehicles.AsNoTracking();
         var totalCount  = await query.CountAsync();
         var items = await query.Skip((page - 1) * pageSize)
             .Take(pageSize)
@@ -30,25 +25,30 @@ public class VehicleRepository: IVehicleRepository
 
     public async Task<Guid> AddAsync(Vehicle vehicle)
     {
-        await _dbContext.Vehicles.AddAsync(vehicle);
-        await _dbContext.SaveChangesAsync();
+        await dbContext.Vehicles.AddAsync(vehicle);
+        await dbContext.SaveChangesAsync();
         return vehicle.Id;
     }
 
     public async Task<Vehicle> UpdateAsync(Vehicle vehicle)
     {
-        _dbContext.Update(vehicle);
-        await _dbContext.SaveChangesAsync();
+        dbContext.Update(vehicle);
+        await dbContext.SaveChangesAsync();
         return vehicle;
     }
 
     public async Task<bool> DeleteAsync(Guid id )
     {
-        var vehicle = await _dbContext.Vehicles.FindAsync(id);
+        var vehicle = await dbContext.Vehicles.FindAsync(id);
         if (vehicle == null)
             return false;
         vehicle.IsDeleted = true;
-        await _dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
         return true;
     }
+
+    public async Task<bool> RegistrationExistsAsync(string regNumber, Guid? excludeId)
+        => await dbContext.Vehicles
+            .AnyAsync(v => v.RegistrationNumber == regNumber
+                           && (excludeId == null || v.Id != excludeId));
 }
