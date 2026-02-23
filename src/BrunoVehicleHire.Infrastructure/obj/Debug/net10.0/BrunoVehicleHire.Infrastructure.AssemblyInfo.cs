@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BrunoVehicleHire.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f59571758b2c18774d6d48fcfabfbc36fc50e0da")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8226fb4a55bf709ca86a494fe5c5de1c60900f9")]
 [assembly: System.Reflection.AssemblyProductAttribute("BrunoVehicleHire.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BrunoVehicleHire.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
