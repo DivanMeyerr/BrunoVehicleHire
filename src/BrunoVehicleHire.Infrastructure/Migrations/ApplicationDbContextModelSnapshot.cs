@@ -46,9 +46,8 @@ namespace BrunoVehicleHire.Infrastructure.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Year")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Year")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

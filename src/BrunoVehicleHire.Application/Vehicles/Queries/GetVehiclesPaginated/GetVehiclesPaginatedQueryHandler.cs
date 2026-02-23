@@ -1,11 +1,12 @@
 using BrunoVehicleHire.Application.Common.Models;
 using BrunoVehicleHire.Application.Vehicles.DTOs;
-using BrunoVehicleHire.Domain.Entities;
 using BrunoVehicleHire.Domain.Interfaces;
+using MediatR;
 
 namespace BrunoVehicleHire.Application.Vehicles.Queries.GetVehiclesPaginated;
 
 public class GetVehiclesPaginatedQueryHandler(IVehicleRepository repository)
+    : IRequestHandler<GetVehiclesPaginatedQuery, PaginatedResult<VehicleDto>>
 {
     public async Task<PaginatedResult<VehicleDto>> Handle(GetVehiclesPaginatedQuery request, CancellationToken cancellationToken)
     {
