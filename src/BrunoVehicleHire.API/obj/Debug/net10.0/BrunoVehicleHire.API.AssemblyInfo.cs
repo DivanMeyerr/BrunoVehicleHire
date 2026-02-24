@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BrunoVehicleHire.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8226fb4a55bf709ca86a494fe5c5de1c60900f9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+60589e75f82f8fcd8af046977131dfbf5a0e9806")]
 [assembly: System.Reflection.AssemblyProductAttribute("BrunoVehicleHire.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BrunoVehicleHire.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

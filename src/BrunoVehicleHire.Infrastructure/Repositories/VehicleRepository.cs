@@ -16,12 +16,29 @@ public class VehicleRepository(ApplicationDbContext dbContext) : IVehicleReposit
     public async Task<(List<Vehicle> Items, int TotalCount)> GetPaginatedAsync(int page, int pageSize, string searchTerm)
     {
         var query = dbContext.Vehicles.AsNoTracking();
+        
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            query = query.Where(v => 
+                v.RegistrationNumber.Contains(searchTerm) ||
+                v.Make.Contains(searchTerm) ||
+                v.Model.Contains(searchTerm));
+        }
+        
         var totalCount  = await query.CountAsync();
         var items = await query.Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
         return (items, totalCount);
     }
+    
+    public async Task<List<Vehicle>> GetDeletedAsync()
+        => await dbContext.Vehicles
+            .IgnoreQueryFilters()
+            .Where(v => v.IsDeleted)
+            .OrderBy(v => v.RegistrationNumber)
+            .AsNoTracking()
+            .ToListAsync();
 
     public async Task<Guid> AddAsync(Vehicle vehicle)
     {
@@ -43,6 +60,7 @@ public class VehicleRepository(ApplicationDbContext dbContext) : IVehicleReposit
         if (vehicle == null)
             return false;
         vehicle.IsDeleted = true;
+        vehicle.DeletedDate = DateTime.Now;
         await dbContext.SaveChangesAsync();
         return true;
     }

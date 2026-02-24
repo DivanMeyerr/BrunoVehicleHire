@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import SearchBar from './SearchBar'
 import Pagination from './Pagination'
+import { useSearchContainerContext } from '../../contexts/SearchContainerContext'
 
 export interface SearchPaginationState {
     pageNumber: number
@@ -9,6 +10,7 @@ export interface SearchPaginationState {
 }
 
 interface SearchPaginationContainerProps {
+    pageName: string
     totalCount: number
     totalPages: number
     itemCount: number
@@ -18,6 +20,7 @@ interface SearchPaginationContainerProps {
 }
 
 export default function SearchPaginationContainer({
+    pageName,
     totalCount,
     totalPages,
     itemCount,
@@ -25,15 +28,13 @@ export default function SearchPaginationContainer({
     searchPlaceholder,
     children,
 }: SearchPaginationContainerProps) {
-    const [state, setState] = useState<SearchPaginationState>({
-        pageNumber: 1,
-        pageSize: 10,
-        searchTerm: '',
-    })
+    const { getState, setState } = useSearchContainerContext()
+    const [state, setLocalState] = useState<SearchPaginationState>(getState(pageName))
 
     const update = (partial: Partial<SearchPaginationState>) => {
         const newState = { ...state, ...partial }
-        setState(newState)
+        setLocalState(newState)
+        setState(pageName, newState)
         onChange(newState)
     }
 
@@ -43,6 +44,7 @@ export default function SearchPaginationContainer({
                 <SearchBar
                     onSearch={term => update({ searchTerm: term, pageNumber: 1 })}
                     placeholder={searchPlaceholder}
+                    initialValue={state.searchTerm}
                 />
             </div>
 

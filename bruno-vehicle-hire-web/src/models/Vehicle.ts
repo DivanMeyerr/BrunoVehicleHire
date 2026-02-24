@@ -5,4 +5,5 @@ export interface Vehicle {
   model: string;
   year: number;
   createdDate: string;
+  deletedDate?: string;
 }

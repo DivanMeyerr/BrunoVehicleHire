@@ -1,31 +1,77 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import type { Vehicle } from '../models/Vehicle'
 import type { PaginatedResult } from '../models/PaginatedResult'
 import type { SearchPaginationState } from '../components/shared/SearchContainer'
-import vehicleService from '../services/VehicleApiService'
-import LoadingSpinner from '../components/shared/LoadingSpinner'
-import ErrorMessage from '../components/shared/ErrorMessage'
+import vehicleService, { type VehicleRequest } from '../services/VehicleApiService'
+import Toast from '../components/shared/Toast'
 import SearchPaginationContainer from '../components/shared/SearchContainer'
+import VehicleFormDialog from '../components/vehicles/VehicleFormDialog'
+import VehiclesTable from '../components/vehicles/VehicleTable'
 
 export default function VehicleListPage() {
-    const navigate = useNavigate()
     const [data, setData] = useState<PaginatedResult<Vehicle> | null>(null)
     const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
     const [deletingId, setDeletingId] = useState<string | null>(null)
+    const [isFormOpen, setIsFormOpen] = useState(false)
+    const [isFormLoading, setIsFormLoading] = useState(false)
+    const [formInitialValues, setFormInitialValues] = useState<VehicleRequest | undefined>(undefined)
+    const [editId, setEditId] = useState<string>("")
+    const [toast, setToast] = useState<{ message: string, type: 'success' | 'error' } | null>(null)
 
     const fetchVehicles = async ({ pageNumber, pageSize, searchTerm }: SearchPaginationState) => {
         try {
             setLoading(true)
-            setError(null)
             const response = await vehicleService.getAll(pageNumber, pageSize, searchTerm)
-            console.log(response)
             setData(response.data)
         } catch (err) {
-            setError('Failed to load vehicles.')
+            if (err instanceof Error)
+                setToast({ message: err.message, type: 'error' })
         } finally {
             setLoading(false)
+        }
+    }
+
+    const onCreate = () => {
+        setEditId("")
+        setIsFormLoading(false)
+        setFormInitialValues(undefined)
+        setIsFormOpen(true)
+    }
+
+    const onEdit = async (regNumber: string) => {
+        try {
+            setIsFormLoading(true)
+            const response = await vehicleService.getByRegistration(regNumber)
+            setEditId(response.data.id)
+            setFormInitialValues(response.data)
+            setIsFormOpen(true)
+        }
+        catch (err) {
+            if (err instanceof Error)
+                setToast({ message: err.message, type: 'error' })
+        }
+        finally {
+            setIsFormLoading(false)
+        }
+    }
+
+    const onSubmit = async (values: VehicleRequest) => {
+        try {
+            setIsFormLoading(true)
+            if (editId) {
+                await vehicleService.update(editId, values)
+            } else {
+                await vehicleService.create(values)
+            }
+            setIsFormOpen(false)
+            setToast({ message: `Vehicle ${editId ? 'updated' : 'created'} successfully!`, type: 'success' })
+            await fetchVehicles({ pageNumber: 1, pageSize: 10, searchTerm: '' })
+        } catch (err) {
+            if (err instanceof Error)
+                setToast({ message: err.message, type: 'error' })
+        } finally {
+            setIsFormLoading(false)
+            setEditId('')
         }
     }
 
@@ -36,7 +82,8 @@ export default function VehicleListPage() {
             await vehicleService.delete(id)
             await fetchVehicles({ pageNumber: 1, pageSize: 10, searchTerm: '' })
         } catch (err) {
-            setError('Failed to delete vehicle.')
+            if (err instanceof Error)
+                setToast({ message: err.message, type: 'error' })
         } finally {
             setDeletingId(null)
         }
@@ -47,77 +94,35 @@ export default function VehicleListPage() {
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold text-gray-900">Vehicles</h1>
                 <button
-                    onClick={() => navigate('/vehicles/create')}
+                    onClick={() => onCreate()}
                     className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                     Add Vehicle
                 </button>
             </div>
 
-            {error && <ErrorMessage message={error} />}
-
             <SearchPaginationContainer
+                pageName='vehiclesList'
                 totalCount={data?.totalCount ?? 0}
                 totalPages={data?.totalPages ?? 0}
                 itemCount={data?.items?.length ?? 0}
                 onChange={fetchVehicles}
                 searchPlaceholder="Search by registration, make or model..."
             >
-                <div className="bg-white rounded-lg border border-gray-200 overflow-hidden mb-4">
-                    <table className="w-full">
-                        <thead className="bg-gray-50 border-b border-gray-200">
-                            <tr>
-                                {['Registration', 'Make', 'Model', 'Year', 'Actions'].map(h => (
-                                    <th key={h} className="text-left px-4 py-3 text-sm font-medium text-gray-600">
-                                        {h}
-                                    </th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-100">
-                            {loading ? (
-                                <tr>
-                                    <td colSpan={5}>
-                                        <LoadingSpinner />
-                                    </td>
-                                </tr>
-                            ) : data?.items?.length === 0 ? (
-                                <tr>
-                                    <td colSpan={5} className="text-center py-8 text-gray-400">
-                                        No vehicles found
-                                    </td>
-                                </tr>
-                            ) : (
-                                data?.items?.map(vehicle => (
-                                    <tr key={vehicle.id} className="hover:bg-gray-50 transition-colors">
-                                        <td className="px-4 py-3 font-mono text-sm">{vehicle.registrationNumber}</td>
-                                        <td className="px-4 py-3">{vehicle.make}</td>
-                                        <td className="px-4 py-3">{vehicle.model}</td>
-                                        <td className="px-4 py-3">{vehicle.year}</td>
-                                        <td className="px-4 py-3">
-                                            <div className="flex gap-2">
-                                                <button
-                                                    onClick={() => navigate(`/vehicles/${vehicle.id}/edit`)}
-                                                    className="text-blue-600 hover:text-blue-800 text-sm font-medium"
-                                                >
-                                                    Edit
-                                                </button>
-                                                <button
-                                                    onClick={() => handleDelete(vehicle.id)}
-                                                    disabled={deletingId === vehicle.id}
-                                                    className="text-red-600 hover:text-red-800 text-sm font-medium disabled:opacity-50"
-                                                >
-                                                    {deletingId === vehicle.id ? 'Deleting...' : 'Delete'}
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))
-                            )}
-                        </tbody>
-                    </table>
-                </div>
+                <VehiclesTable
+                    vehicles={data?.items}
+                    loading={loading}
+                    deletingId={deletingId}
+                    onEdit={onEdit}
+                    onDelete={handleDelete}
+                />
             </SearchPaginationContainer>
+
+            <VehicleFormDialog isOpen={isFormOpen} initialValues={formInitialValues} onClose={() => setIsFormOpen(false)} isLoading={isFormLoading} onSubmit={onSubmit} />
+
+            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+
+
         </div>
     )
 }

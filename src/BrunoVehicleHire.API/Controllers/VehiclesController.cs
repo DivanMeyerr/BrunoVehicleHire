@@ -1,6 +1,7 @@
 using BrunoVehicleHire.Application.Vehicles.Commands.CreateVehicle;
 using BrunoVehicleHire.Application.Vehicles.Commands.DeleteVehicle;
 using BrunoVehicleHire.Application.Vehicles.Commands.UpdateVehicle;
+using BrunoVehicleHire.Application.Vehicles.Queries.GetDeletedVehicles;
 using BrunoVehicleHire.Application.Vehicles.Queries.GetVehicleByRegistration;
 using BrunoVehicleHire.Application.Vehicles.Queries.GetVehiclesPaginated;
 using MediatR;
@@ -36,6 +37,10 @@ public class VehiclesController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new GetVehiclesPaginatedQuery(pageNumber, pageSize, searchTerm));
         return Ok(result);
     }
+    
+    [HttpGet("deleted")]
+    public async Task<IActionResult> GetDeleted()
+        => Ok(await mediator.Send(new GetDeletedVehiclesQuery()));
 
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> UpdateVehicle([FromRoute] Guid id, UpdateVehicleCommand command)

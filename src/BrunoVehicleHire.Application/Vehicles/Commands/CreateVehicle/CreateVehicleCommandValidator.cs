@@ -11,7 +11,8 @@ public class CreateVehicleCommandValidator : AbstractValidator<CreateVehicleComm
             .NotEmpty()
             .MaximumLength(20)
             .MustAsync(async (reg, ct) =>
-            !await repository.RegistrationExistsAsync(reg));
+            !await repository.RegistrationExistsAsync(reg))
+            .WithMessage("Registration number already exists.");
         
         RuleFor(x => x.Make)
             .NotEmpty()

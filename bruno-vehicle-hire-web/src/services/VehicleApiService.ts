@@ -2,14 +2,7 @@ import apiClient from "./ApiClient";
 import type { Vehicle } from "../models/Vehicle";
 import type { PaginatedResult } from "../models/PaginatedResult";
 
-export interface CreateVehicleRequest {
-  registrationNumber: string;
-  make: string;
-  model: string;
-  year: number;
-}
-
-export interface UpdateVehicleRequest {
+export interface VehicleRequest {
   registrationNumber: string;
   make: string;
   model: string;
@@ -25,10 +18,12 @@ const vehicleService = {
   getByRegistration: (registrationNumber: string) =>
     apiClient.get<Vehicle>(`/vehicles/${registrationNumber}`),
 
-  create: (vehicle: CreateVehicleRequest) =>
+  getDeleted: () => apiClient.get<Vehicle[]>(`/vehicles/deleted`),
+
+  create: (vehicle: VehicleRequest) =>
     apiClient.post<Vehicle>("/vehicles", vehicle),
 
-  update: (id: string, vehicle: UpdateVehicleRequest) =>
+  update: (id: string, vehicle: VehicleRequest) =>
     apiClient.put<Vehicle>(`/vehicles/${id}`, vehicle),
 
   delete: (id: string) => apiClient.delete(`/vehicles/${id}`),

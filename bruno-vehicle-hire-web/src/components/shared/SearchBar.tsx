@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 
 interface SearchBarProps {
+    initialValue?: string
     onSearch: (searchTerm: string) => void
     placeholder?: string
 }
 
-export default function SearchBar({ onSearch, placeholder = 'Search...' }: SearchBarProps) {
-    const [input, setInput] = useState('')
+export default function SearchBar({ initialValue = '', onSearch, placeholder = 'Search...' }: SearchBarProps) {
+    const [input, setInput] = useState(initialValue)
 
     useEffect(() => {
         const timer = setTimeout(() => {
