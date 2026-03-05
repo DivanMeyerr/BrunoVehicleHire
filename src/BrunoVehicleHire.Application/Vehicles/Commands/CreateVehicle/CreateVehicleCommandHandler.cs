@@ -20,7 +20,7 @@ public class CreateVehicleCommandHandler(IVehicleRepository  repository)
             CreatedDate = DateTime.UtcNow,
         };
         
-        await repository.AddAsync(vehicle);
+        await repository.AddAsync(vehicle, cancellationToken);
 
         return new VehicleDto(
             vehicle.Id,

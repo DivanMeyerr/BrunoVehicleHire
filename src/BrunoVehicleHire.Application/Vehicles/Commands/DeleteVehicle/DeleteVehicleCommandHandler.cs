@@ -8,7 +8,7 @@ public class DeleteVehicleCommandHandler(IVehicleRepository repository)
 {
     public async Task<bool> Handle(DeleteVehicleCommand request, CancellationToken cancellationToken)
     {
-        var result = await repository.DeleteAsync(request.Id);
+        var result = await repository.DeleteAsync(request.Id, cancellationToken);
 
         if (!result)
         {

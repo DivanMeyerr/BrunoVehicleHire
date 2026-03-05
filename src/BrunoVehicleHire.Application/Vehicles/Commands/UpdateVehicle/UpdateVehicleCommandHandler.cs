@@ -17,7 +17,7 @@ public class UpdateVehicleCommandHandler(IVehicleRepository repository)
         vehicle.Model = request.Model;
         vehicle.Year = request.Year;
         
-        var updated = await repository.UpdateAsync(vehicle);
+        var updated = await repository.UpdateAsync(vehicle, cancellationToken);
 
         return new VehicleDto(
             updated.Id,

@@ -40,28 +40,28 @@ public class VehicleRepository(ApplicationDbContext dbContext) : IVehicleReposit
             .AsNoTracking()
             .ToListAsync();
 
-    public async Task<Guid> AddAsync(Vehicle vehicle)
+    public async Task<Guid> AddAsync(Vehicle vehicle, CancellationToken cancellationToken = default)
     {
-        await dbContext.Vehicles.AddAsync(vehicle);
-        await dbContext.SaveChangesAsync();
+        await dbContext.Vehicles.AddAsync(vehicle, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken: cancellationToken);
         return vehicle.Id;
     }
 
-    public async Task<Vehicle> UpdateAsync(Vehicle vehicle)
+    public async Task<Vehicle> UpdateAsync(Vehicle vehicle, CancellationToken cancellationToken = default)
     {
         dbContext.Update(vehicle);
-        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync(cancellationToken);
         return vehicle;
     }
 
-    public async Task<bool> DeleteAsync(Guid id )
+    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var vehicle = await dbContext.Vehicles.FindAsync(id);
         if (vehicle == null)
             return false;
         vehicle.IsDeleted = true;
-        vehicle.DeletedDate = DateTime.Now;
-        await dbContext.SaveChangesAsync();
+        vehicle.DeletedDate = DateTime.UtcNow;
+        await dbContext.SaveChangesAsync(cancellationToken);
         return true;
     }
 

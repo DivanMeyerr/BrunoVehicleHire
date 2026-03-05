@@ -26,7 +26,7 @@ public class CreateVehicleCommandHandlerTests
             "Corolla",
             2020);
 
-        _repository.AddAsync(Arg.Any<Vehicle>())
+        _repository.AddAsync(Arg.Any<Vehicle>(), Arg.Any<CancellationToken>())
             .Returns(Guid.NewGuid());
 
         var result = await _handler.Handle(command, CancellationToken.None);
@@ -47,11 +47,11 @@ public class CreateVehicleCommandHandlerTests
             "Corolla",
             2020);
 
-        _repository.AddAsync(Arg.Any<Vehicle>())
+        _repository.AddAsync(Arg.Any<Vehicle>(), Arg.Any<CancellationToken>())
             .Returns(Guid.NewGuid());
 
         await _handler.Handle(command, CancellationToken.None);
 
-        await _repository.Received(1).AddAsync(Arg.Any<Vehicle>());
+        await _repository.Received(1).AddAsync(Arg.Any<Vehicle>(), Arg.Any<CancellationToken>());
     }
 }

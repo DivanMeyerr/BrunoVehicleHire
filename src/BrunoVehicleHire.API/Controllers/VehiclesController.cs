@@ -17,7 +17,11 @@ public class VehiclesController(IMediator mediator) : ControllerBase
     public async Task<IActionResult> Create(CreateVehicleCommand command)
     {
         var result = await mediator.Send(command);
-        return Ok(result);
+        
+        return CreatedAtAction(
+            nameof(GetVehicleByRegistrationQuery),
+            new { registrationNumber = result.RegistrationNumber },  
+            result);
     }
 
     [HttpGet("{registrationNumber}")]
