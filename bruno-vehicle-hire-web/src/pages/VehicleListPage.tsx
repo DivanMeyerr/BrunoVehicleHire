@@ -1,22 +1,23 @@
-import { useState } from 'react'
-import type { Vehicle } from '../models/Vehicle'
+import { useRef, useState } from 'react'
+import type { Vehicle, VehicleRequest } from '../models/Vehicle'
 import type { PaginatedResult } from '../models/PaginatedResult'
 import type { SearchPaginationState } from '../components/shared/SearchContainer'
-import vehicleService, { type VehicleRequest } from '../services/VehicleApiService'
+import vehicleService from '../services/VehicleApiService'
 import Toast from '../components/shared/Toast'
-import SearchPaginationContainer from '../components/shared/SearchContainer'
+import SearchPaginationContainer, { type SearchPaginationContainerRef } from '../components/shared/SearchContainer'
 import VehicleFormDialog from '../components/vehicles/VehicleFormDialog'
 import VehiclesTable from '../components/vehicles/VehicleTable'
 
 export default function VehicleListPage() {
-    const [data, setData] = useState<PaginatedResult<Vehicle> | null>(null)
+    const [data, setData] = useState<PaginatedResult<Vehicle>>()
     const [loading, setLoading] = useState(true)
-    const [deletingId, setDeletingId] = useState<string | null>(null)
+    const [deletingId, setDeletingId] = useState<string>("")
     const [isFormOpen, setIsFormOpen] = useState(false)
     const [isFormLoading, setIsFormLoading] = useState(false)
     const [formInitialValues, setFormInitialValues] = useState<VehicleRequest | undefined>(undefined)
     const [editId, setEditId] = useState<string>("")
     const [toast, setToast] = useState<{ message: string, type: 'success' | 'error' } | null>(null)
+    const searchPaginationRef = useRef<SearchPaginationContainerRef>(null)
 
     const fetchVehicles = async ({ pageNumber, pageSize, searchTerm }: SearchPaginationState) => {
         try {
@@ -65,7 +66,7 @@ export default function VehicleListPage() {
             }
             setIsFormOpen(false)
             setToast({ message: `Vehicle ${editId ? 'updated' : 'created'} successfully!`, type: 'success' })
-            await fetchVehicles({ pageNumber: 1, pageSize: 10, searchTerm: '' })
+            searchPaginationRef.current?.refresh()
         } catch (err) {
             if (err instanceof Error)
                 setToast({ message: err.message, type: 'error' })
@@ -80,12 +81,12 @@ export default function VehicleListPage() {
         try {
             setDeletingId(id)
             await vehicleService.delete(id)
-            await fetchVehicles({ pageNumber: 1, pageSize: 10, searchTerm: '' })
+            searchPaginationRef.current?.refresh()
         } catch (err) {
             if (err instanceof Error)
                 setToast({ message: err.message, type: 'error' })
         } finally {
-            setDeletingId(null)
+            setDeletingId("")
         }
     }
 
@@ -102,6 +103,7 @@ export default function VehicleListPage() {
             </div>
 
             <SearchPaginationContainer
+                ref={searchPaginationRef}
                 pageName='vehiclesList'
                 totalCount={data?.totalCount ?? 0}
                 totalPages={data?.totalPages ?? 0}
@@ -110,7 +112,7 @@ export default function VehicleListPage() {
                 searchPlaceholder="Search by registration, make or model..."
             >
                 <VehiclesTable
-                    vehicles={data?.items}
+                    vehicles={data?.items || []}
                     loading={loading}
                     deletingId={deletingId}
                     onEdit={onEdit}

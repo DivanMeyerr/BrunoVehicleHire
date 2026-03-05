@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useImperativeHandle, forwardRef } from 'react'
 import SearchBar from './SearchBar'
 import Pagination from './Pagination'
 import { useSearchContainerContext } from '../../contexts/SearchContainerContext'
@@ -19,7 +19,11 @@ interface SearchPaginationContainerProps {
     children: React.ReactNode
 }
 
-export default function SearchPaginationContainer({
+export interface SearchPaginationContainerRef {
+    refresh: () => void
+}
+
+const SearchPaginationContainer = forwardRef<SearchPaginationContainerRef, SearchPaginationContainerProps>(({
     pageName,
     totalCount,
     totalPages,
@@ -27,9 +31,13 @@ export default function SearchPaginationContainer({
     onChange,
     searchPlaceholder,
     children,
-}: SearchPaginationContainerProps) {
+}, ref) => {
     const { getState, setState } = useSearchContainerContext()
     const [state, setLocalState] = useState<SearchPaginationState>(getState(pageName))
+
+    useImperativeHandle(ref, () => ({
+        refresh: () => onChange(state),
+    }), [state, onChange])
 
     const update = (partial: Partial<SearchPaginationState>) => {
         const newState = { ...state, ...partial }
@@ -61,4 +69,6 @@ export default function SearchPaginationContainer({
             />
         </div>
     )
-}
+})
+
+export default SearchPaginationContainer

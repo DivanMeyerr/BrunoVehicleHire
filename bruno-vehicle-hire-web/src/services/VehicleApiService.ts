@@ -1,13 +1,6 @@
 import apiClient from "./ApiClient";
-import type { Vehicle } from "../models/Vehicle";
+import type { Vehicle, VehicleRequest } from "../models/Vehicle";
 import type { PaginatedResult } from "../models/PaginatedResult";
-
-export interface VehicleRequest {
-  registrationNumber: string;
-  make: string;
-  model: string;
-  year: number;
-}
 
 const vehicleService = {
   getAll: (pageNumber: number, pageSize: number, searchTerm: string = "") =>

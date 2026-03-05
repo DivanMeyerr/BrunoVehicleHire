@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import type { VehicleRequest } from '../../services/VehicleApiService'
+import type { VehicleRequest } from '../../models/Vehicle'
+
 
 interface FormErrors {
     registrationNumber?: string

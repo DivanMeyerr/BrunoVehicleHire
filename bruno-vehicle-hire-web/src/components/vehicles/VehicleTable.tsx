@@ -2,9 +2,9 @@ import type { Vehicle } from '../../models/Vehicle'
 import { Pencil, Trash2 } from 'lucide-react'
 
 interface VehiclesTableProps {
-    vehicles: Vehicle[] | undefined
+    vehicles: Vehicle[]
     loading: boolean
-    deletingId?: string | null
+    deletingId?: string
     onEdit?: (registrationNumber: string) => void
     onDelete?: (id: string) => void
     emptyMessage?: string
@@ -30,9 +30,9 @@ export default function VehiclesTable({
             <table className="w-full">
                 <thead className="bg-gray-50 border-b border-gray-200">
                     <tr>
-                        {columns.map(h => (
-                            <th key={h} className="text-left px-4 py-3 text-sm font-medium text-gray-600">
-                                {h}
+                        {columns.map(col => (
+                            <th key={col} className="text-left px-4 py-3 text-sm font-medium text-gray-600">
+                                {col}
                             </th>
                         ))}
                     </tr>
